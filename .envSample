@@ -1,0 +1,8 @@
+# Sample environment variables for the project
+
+# Credentials path
+CREDS_JSON_PATH=./credentials/credentials.json
+
+# Google Sheets settings
+GOOGLE_SHEET_ID=your_google_sheet_id
+GOOGLE_SHEET_RANGE=Sheet1!A1:E100

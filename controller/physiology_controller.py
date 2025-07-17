@@ -3,7 +3,16 @@ from typing import List
 from model.physiology_model import PhysiologyRecord
 from service.physiology_service import PhysiologyService
 from repository.google_sheets_repo import GoogleSheetsRepository
-from config import SPREADSHEET_ID, SHEET_NAME, CREDS_JSON_PATH
+from dotenv import load_dotenv
+import os
+
+# 載入 .env 檔案
+load_dotenv()
+
+# 讀取環境變數
+SPREADSHEET_ID = os.getenv("SPREADSHEET_ID")
+SHEET_NAME = os.getenv("SHEET_NAME")
+CREDS_JSON_PATH = os.getenv("CREDS_JSON_PATH")
 
 router = APIRouter()
 

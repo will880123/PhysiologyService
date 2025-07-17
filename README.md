@@ -41,21 +41,36 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 4️⃣ 設定 Google Sheets API 認證資訊
+### 4️⃣ 設定環境變數檔 `.env`
+
+1. 複製 .envSample 為 .env 檔案：
+
+```bash
+cp .envSample .env  # Windows 可用 copy .envSample .env
+```
+
+2. 根據你的 Google Sheets API 設定，編輯 `.env` 檔案，填入：
+
+- `GOOGLE_SHEET_ID`
+- `GOOGLE_SHEET_RANGE`
+- `CREDS_JSON_PATH`（預設為 `./credentials/credentials.json`）
+
+
+### 5️⃣ 設定 Google Sheets API 認證資訊
 
 1. 前往 [Google Cloud Console](https://console.cloud.google.com/)
 2. 建立專案並啟用 Google Sheets API
 3. 建立 OAuth 2.0 憑證，下載 `credentials.json`
 4. 將 `credentials.json` 放置於 `./credentials` 資料夾內
 
-### 5️⃣ 用 uvicorn 啟動應用程式
+### 6️⃣ 用 uvicorn 啟動應用程式
 
 ```bash
 python main.py
 ```
 
 
-### 6️⃣ 測試 API
+### 7️⃣ 測試 API
 
 - 開啟瀏覽器並前往自動產生的 Swagger UI：
     ```nginx
@@ -67,7 +82,7 @@ python main.py
     curl http://127.0.0.1:8000/records
     ```
 
-### 7️⃣ 結束與退出虛擬環境
+### 8️⃣ 結束與退出虛擬環境
 
 ```bash
 deactivate
@@ -85,6 +100,8 @@ PhysiologyService/
 ├── models/                  # 資料模型
 ├── repositories/            # 資料存取與處理
 ├── services/                # 商業邏輯
+├── .env                     # 實際的環境變數檔
+├── .envSample               # 範例的環境變數檔
 ├── main.py                  # 主程式入口，啟動 FastAPI app
 └── requirements.txt         # 套件清單
 ```
