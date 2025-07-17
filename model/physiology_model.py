@@ -1,8 +1,11 @@
-from dataclasses import dataclass
+from pydantic import BaseModel
 
-@dataclass
-class PhysiologyRecord:
-    id: str          # 唯一識別碼 (uuid)
-    date: str        # 日期，例如 '2025-07-16'
-    blood_pressure: str  # 血壓，例如 '120/80'
-    blood_sugar: float   # 血糖，例如 5.6
+# 輸入資料（不含 id）
+class PhysiologyRequest(BaseModel):
+    date: str
+    blood_pressure: str
+    blood_sugar: float
+
+# 回傳資料（含 id）
+class PhysiologyResponse(PhysiologyRequest):
+    id: str

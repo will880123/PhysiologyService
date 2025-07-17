@@ -1,7 +1,7 @@
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 from typing import List, Optional
-from model.physiology_model import PhysiologyRecord
+from model.physiology_model import PhysiologyResponse
 
 
 class GoogleSheetsRepository:
@@ -17,12 +17,12 @@ class GoogleSheetsRepository:
         except (ValueError, TypeError):
             return default
 
-    def get_all(self) -> List[PhysiologyRecord]:
+    def get_all(self) -> List[PhysiologyResponse]:
         records = self.sheet.get_all_records()
         result = []
 
         for r in records:
-            result.append(PhysiologyRecord(
+            result.append(PhysiologyResponse(
                 id=str(r.get('id') or "").strip(),
                 date=str(r.get('date') or "").strip(),
                 blood_pressure=str(r.get('blood_pressure') or "").strip(),
@@ -31,7 +31,7 @@ class GoogleSheetsRepository:
 
         return result
 
-    def insert(self, record: PhysiologyRecord) -> None:
+    def insert(self, record: PhysiologyResponse) -> None:
         self.sheet.append_row([
             record.id or "",
             record.date or "",
@@ -39,7 +39,7 @@ class GoogleSheetsRepository:
             record.blood_sugar if record.blood_sugar is not None else 0.0
         ])
 
-    def update(self, record: PhysiologyRecord) -> bool:
+    def update(self, record: PhysiologyResponse) -> bool:
         all_records = self.sheet.get_all_records()
         for idx, r in enumerate(all_records, start=2):  # Row 1 = header
             if str(r.get('id', '')).strip() == record.id:
@@ -60,11 +60,11 @@ class GoogleSheetsRepository:
                 return True
         return False
 
-    def find_by_id(self, record_id: str) -> Optional[PhysiologyRecord]:
+    def find_by_id(self, record_id: str) -> Optional[PhysiologyResponse]:
         all_records = self.sheet.get_all_records()
         for r in all_records:
             if str(r.get('id', '')).strip() == record_id:
-                return PhysiologyRecord(
+                return PhysiologyResponse(
                     id=str(r.get('id') or "").strip(),
                     date=str(r.get('date') or "").strip(),
                     blood_pressure=str(r.get('blood_pressure') or "").strip(),
