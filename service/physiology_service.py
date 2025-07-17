@@ -1,6 +1,6 @@
 import uuid
 from typing import List, Optional
-from models.physiology_model import PhysiologyRecord
+from model.physiology_model import PhysiologyRecord
 from repository.google_sheets_repo import GoogleSheetsRepository
 
 class PhysiologyService:
