@@ -56,7 +56,7 @@ class GoogleSheetsRepository:
         all_records = self.sheet.get_all_records()
         for idx, r in enumerate(all_records, start=2):
             if str(r.get('id', '')).strip() == record_id:
-                self.sheet.delete_row(idx)
+                self.sheet.delete_rows(idx)
                 return True
         return False
 
